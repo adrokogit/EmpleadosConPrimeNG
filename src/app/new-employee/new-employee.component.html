@@ -1,0 +1,32 @@
+<h1>Nuevo Empleado</h1>
+
+<form class="form" [formGroup]="formGroup">
+
+    <div class="field">
+        <label for="name">Nombre</label>
+        <input type="text" pInputText id="name" placeholder="Nombre" formControlName="name" /> 
+    </div>
+    <div class="field">
+        <label for="lastName">Apellidos</label>
+        <input type="text" pInputText id="lastName" placeholder="Apellidos" formControlName="lastName" /> 
+    </div>
+    <div class="field">
+        <label for="email">Email</label>
+        <input type="text" pInputText id="email" placeholder="Email" formControlName="email" /> 
+    </div>
+
+    <div class="field">
+        <label for="salary">Salario (€)</label>
+        <input type="number" pInputText id="salary" placeholder="Salario" formControlName="salary" /> 
+    </div>
+    <div class="field">
+        <label for="date">Fecha de Nacimiento</label>
+        <p-calendar id="date" [(ngModel)]="date" formControlName="date" dateFormat="dd/mm/yy"/>
+    </div>
+    <div class="field">
+        <label for="active">Activo</label>
+        <p-selectButton id="active" [options]="stateOptions" [(ngModel)]="active" optionLabel="label" optionValue="value" />
+    </div>
+    <p-button>Aceptar</p-button>
+     
+</form>

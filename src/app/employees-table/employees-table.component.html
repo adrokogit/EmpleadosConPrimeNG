@@ -1,7 +1,12 @@
 
 <div>
     <h2>Empleados Activos</h2>
-    <p-table [value]="employees.slice().reverse()" [tableStyle]="{ 'min-width': '50rem' }">
+    <p-toast></p-toast>
+    <p-table 
+        [value]="employees.slice().reverse()" 
+        [tableStyle]="{ 'min-width': '50rem' }"
+    >
+
         <ng-template pTemplate="header">
             <tr>
                 <th>Nombre</th>

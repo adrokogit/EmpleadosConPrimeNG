@@ -20,7 +20,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { EmployeesService } from './employees.service';
 import { InactiveEmployeesTableComponent } from './inactive-employees-table/inactive-employees-table.component';
 import { CardModule } from 'primeng/card';
-
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 const routes: Routes = [
   { path: '', component: EmployeesTableComponent },
   { path: 'inactive', component: InactiveEmployeesTableComponent },
@@ -54,9 +55,10 @@ const routes: Routes = [
     BrowserAnimationsModule,
     SelectButtonModule,
     CardModule,
+    ToastModule,
     RouterModule.forRoot(routes, { useHash: false }),
   ],
-  providers: [EmployeesService],
+  providers: [EmployeesService,MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -9,9 +9,8 @@
 ::ng-deep td,th{
     text-align: center;
 }
-::ng-deep .p-datatable{
-    display: flex;
-    justify-content: center;
+::ng-deep .p-paginator-bottom{
+    border-radius: 20px;
 }
 
 h2{

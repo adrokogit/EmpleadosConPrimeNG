@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Employee } from '../../model/Employee';
 import { EmployeesService } from '../employees.service';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-inactive-employees-table',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 export class InactiveEmployeesTableComponent {
   employees: Employee[] = [];
 
-  constructor(private employeesService:EmployeesService, private router:Router){
+  constructor(private employeesService:EmployeesService, private router:Router,private messageService: MessageService){
 
   }
 
@@ -25,5 +26,12 @@ export class InactiveEmployeesTableComponent {
 
   activateEmployee(employeeID: string): void {
     this.employeesService.activateEmployee(employeeID);
+    this.employeesService.getEmployeeById(employeeID).subscribe(employee=>{
+      this.showToast(employee.getFullName());
+    });
+  }
+
+  showToast(fullName:string) { 
+    this.messageService.add({severity: 'success', summary:  fullName+'  Activado', detail: 'Se ha completado la acción correctamente.' });
   }
 }

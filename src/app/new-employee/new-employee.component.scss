@@ -2,18 +2,11 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
-    width: 40%;
+    
 }
   
 .field label {
     margin-bottom: 0.5rem;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
 }
 
 h1{
@@ -21,4 +14,28 @@ h1{
 }
 
 
+small {
+    color: red;
+}
 
+p-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+::ng-deep .p-card-body {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 3px solid #334663;
+  }
+  
+::ng-deep .p-card{
+    margin-top: 40px;
+}

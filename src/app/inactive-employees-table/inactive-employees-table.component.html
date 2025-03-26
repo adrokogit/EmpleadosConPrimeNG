@@ -1,6 +1,6 @@
 
 <div>
-    <h2>Empleados Activos</h2>
+    <h2>Empleados Inactivos</h2>
     <p-table [value]="employees.slice().reverse()" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header">
             <tr>
@@ -13,15 +13,15 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-employee>
-            <tr *ngIf="employee.active">
+            <tr *ngIf="!employee.active">
                 <td>{{ employee.name }}</td>
                 <td>{{ employee.lastName }}</td>
                 <td>{{ employee.email }}</td>
                 <td>{{ employee.salary | number }}€</td>
                 <td>{{ employee.birthDate | date:'dd/MM/yyyy' }}</td>
                 <td class="action-buttons">
-                    <p-button icon="pi pi-pen-to-square" [rounded]="true" pTooltip="Modificar empleado" showDelay="500" severity="info" (click)="modifyEmployee(employee.id)"/>
-                    <p-button icon="pi pi-times" [rounded]="true" pTooltip="Inactivar empleado" showDelay="500" severity="danger" (click)="inactivateEmployee(employee.id)"/>
+                    <p-button icon="pi pi-pen-to-square" [rounded]="true" pTooltip="Modificar empleado" showDelay="500" severity="info" (onClick)="modifyEmployee(employee.id)"/>
+                    <p-button icon="pi pi-check-square" [rounded]="true" pTooltip="Activar empleado" showDelay="500" severity="success" (onClick)="activateEmployee(employee.id)"/>
                 </td>
             </tr>
         </ng-template>

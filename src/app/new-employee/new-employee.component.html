@@ -1,32 +1,61 @@
-<h1>Nuevo Empleado</h1>
+<p-card header="{{id==''?'Crear Empleado':'Modificar Empleado'}}" [style]="{'width': '40rem'}">
 
 <form class="form" [formGroup]="formGroup">
 
     <div class="field">
         <label for="name">Nombre</label>
-        <input type="text" pInputText id="name" placeholder="Nombre" formControlName="name" /> 
-    </div>
-    <div class="field">
+        <input type="text" pInputText id="name" placeholder="Nombre" formControlName="name" />
+        <div *ngIf="formGroup.get('name')?.invalid && (formGroup.get('name')?.dirty || formGroup.get('name')?.touched)" class="error-message">
+          <small *ngIf="formGroup.get('name')?.errors?.['required']">Nombre es requerido.</small>
+        </div>
+      </div>
+    
+      <div class="field">
         <label for="lastName">Apellidos</label>
-        <input type="text" pInputText id="lastName" placeholder="Apellidos" formControlName="lastName" /> 
-    </div>
-    <div class="field">
+        <input type="text" pInputText id="lastName" placeholder="Apellidos" formControlName="lastName" />
+        <div *ngIf="formGroup.get('lastName')?.invalid && (formGroup.get('lastName')?.dirty || formGroup.get('lastName')?.touched)" class="error-message">
+          <small *ngIf="formGroup.get('lastName')?.errors?.['required']">Apellidos es requerido.</small>
+        </div>
+      </div>
+    
+      <div class="field">
         <label for="email">Email</label>
-        <input type="text" pInputText id="email" placeholder="Email" formControlName="email" /> 
-    </div>
-
-    <div class="field">
+        <input type="text" pInputText id="email" placeholder="Email" formControlName="email" />
+        <div *ngIf="formGroup.get('email')?.invalid && (formGroup.get('email')?.dirty || formGroup.get('email')?.touched)" class="error-message">
+          <small *ngIf="formGroup.get('email')?.errors?.['required']">Email es requerido.</small>
+          <small *ngIf="formGroup.get('email')?.errors?.['email']">Email no es válido.</small>
+        </div>
+      </div>
+    
+      <div class="field">
         <label for="salary">Salario (€)</label>
-        <input type="number" pInputText id="salary" placeholder="Salario" formControlName="salary" /> 
-    </div>
-    <div class="field">
+        <input type="number" pInputText id="salary" placeholder="Salario" formControlName="salary" />
+        <div *ngIf="formGroup.get('salary')?.invalid && (formGroup.get('salary')?.dirty || formGroup.get('salary')?.touched)" class="error-message">
+          <small *ngIf="formGroup.get('salary')?.errors?.['required']">Salario es requerido.</small>
+          <small *ngIf="formGroup.get('salary')?.errors?.['min']">Salario debe ser mayor o igual a 0.</small>
+        </div>
+      </div>
+    
+      <div class="field">
         <label for="date">Fecha de Nacimiento</label>
-        <p-calendar id="date" [(ngModel)]="date" formControlName="date" dateFormat="dd/mm/yy"/>
-    </div>
-    <div class="field">
+        <p-calendar id="date" formControlName="date" dateFormat="dd/mm/yy" />
+        <div *ngIf="formGroup.get('date')?.invalid && (formGroup.get('date')?.dirty || formGroup.get('date')?.touched)" class="error-message">
+          <small *ngIf="formGroup.get('date')?.errors?.['required']">Fecha de nacimiento es requerida.</small>
+          <small *ngIf="formGroup.get('date')?.errors?.['dateNotBeforeToday']">Fecha de nacimiento debe ser anterior a hoy.</small>
+        </div>
+      </div>
+    
+      <div class="field">
         <label for="active">Activo</label>
-        <p-selectButton id="active" [options]="stateOptions" [(ngModel)]="active" optionLabel="label" optionValue="value" />
+        <p-selectButton id="active" [options]="stateOptions" formControlName="active" optionLabel="label" optionValue="value" />
+        <div *ngIf="formGroup.get('active')?.invalid && (formGroup.get('active')?.dirty || formGroup.get('active')?.touched)" class="error-message">
+            <small *ngIf="formGroup.get('active')?.errors?.['required']">Escoja una opción.</small>
+          </div>
+      </div>
+      <div class="buttons">
+        <p-button *ngIf="id==''" (onClick)="createEmployee()">Crear</p-button>
+        <p-button *ngIf="id!=''" (onClick)="modifyEmployee()">Modificar</p-button>
     </div>
-    <p-button>Aceptar</p-button>
-     
 </form>
+
+</p-card>

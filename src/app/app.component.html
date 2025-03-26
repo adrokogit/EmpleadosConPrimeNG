@@ -1,11 +1,12 @@
 
 <p-menubar [model]="items">
   <ng-template pTemplate="start">
-    <img src="../assets/tsk_logo.png" style="height: 35px;" (click)="navigateTo('/')"/>
+    <img src="../assets/tsk_logo_invert.png" style="height: 35px;" (click)="navigateTo('/')"/>
 </ng-template>
 </p-menubar>
 
 <div class="container">
-<!--<app-employees-table></app-employees-table>-->
-<app-new-employee></app-new-employee>
+
+<router-outlet></router-outlet>
+
 </div>

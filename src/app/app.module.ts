@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { Routes, RouterModule } from '@angular/router';
 
 import { Table, TableModule } from 'primeng/table';
 import { EmployeesTableComponent } from './employees-table/employees-table.component';
@@ -16,12 +17,27 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { EmployeesService } from './employees.service';
+import { InactiveEmployeesTableComponent } from './inactive-employees-table/inactive-employees-table.component';
+import { CardModule } from 'primeng/card';
+
+const routes: Routes = [
+  { path: '', component: EmployeesTableComponent },
+  { path: 'inactive', component: InactiveEmployeesTableComponent },
+  { path: 'newemployee', component: NewEmployeeComponent },
+  { path: 'modifyemployee/:id', component: NewEmployeeComponent },
+  { path: '**', component: EmployeesTableComponent },
+
+];
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     EmployeesTableComponent,
-    NewEmployeeComponent
+    NewEmployeeComponent,
+    InactiveEmployeesTableComponent
   ],
   imports: [
     BrowserModule,
@@ -37,8 +53,10 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     ToggleButtonModule,
     BrowserAnimationsModule,
     SelectButtonModule,
+    CardModule,
+    RouterModule.forRoot(routes, { useHash: false }),
   ],
-  providers: [],
+  providers: [EmployeesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

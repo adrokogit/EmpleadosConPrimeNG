@@ -21,7 +21,7 @@ export class AppComponent {
     },
     {
       label: 'Empleados Inactivos',
-      icon: 'pi pi-star',
+      icon: 'pi pi-flag',
       command : () => this.navigateTo('/inactive')
   },
   

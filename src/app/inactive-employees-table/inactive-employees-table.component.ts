@@ -4,13 +4,11 @@ import { EmployeesService } from '../employees.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-employees-table',
-  templateUrl: './employees-table.component.html',
-  styleUrl: './employees-table.component.scss'
+  selector: 'app-inactive-employees-table',
+  templateUrl: './inactive-employees-table.component.html',
+  styleUrl: './inactive-employees-table.component.scss'
 })
-export class EmployeesTableComponent implements OnInit{
-  
-
+export class InactiveEmployeesTableComponent {
   employees: Employee[] = [];
 
   constructor(private employeesService:EmployeesService, private router:Router){
@@ -25,9 +23,7 @@ export class EmployeesTableComponent implements OnInit{
     this.router.navigate(['/modifyemployee', employeeID]);
   }
 
-  inactivateEmployee(employeeID: string): void {
-    this.employeesService.inactivateEmployee(employeeID);
-    console.log('Employee inactivated: '+employeeID);
+  activateEmployee(employeeID: string): void {
+    this.employeesService.activateEmployee(employeeID);
   }
-
 }

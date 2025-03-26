@@ -34,4 +34,8 @@ export class InactiveEmployeesTableComponent {
   showToast(fullName:string) { 
     this.messageService.add({severity: 'success', summary:  fullName+'  Activado', detail: 'Se ha completado la acción correctamente.' });
   }
+
+  getEmployees(){
+    return this.employees.filter(employee => !employee.active).slice().reverse();
+  }
 }

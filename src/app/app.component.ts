@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -26,10 +27,18 @@ export class AppComponent {
   },
   
   ];
-  constructor(private router: Router) { }
+  constructor(private router: Router, private messageService: MessageService) {
+    window.addEventListener('showToast', (event: any) => {
+      this.showToast(event.detail.summary, event.detail.detail);
+    });
+   }
 
   navigateTo(route: string) {
     this.router.navigate([route]);
+  }
+
+  showToast(summary: string, detail: string) {
+    this.messageService.add({severity: 'success', summary: summary, detail: detail});
   }
 
 }

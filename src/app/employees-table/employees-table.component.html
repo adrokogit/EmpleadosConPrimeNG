@@ -3,7 +3,9 @@
     <h2>Empleados Activos</h2>
     <p-toast></p-toast>
     <p-table 
-        [value]="employees.slice().reverse()" 
+        [value]="getEmployees()" 
+        [paginator]="true"
+        [rows]="8"
         [tableStyle]="{ 'min-width': '50rem' }"
     >
 
@@ -18,7 +20,7 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-employee>
-            <tr *ngIf="employee.active">
+            <tr>
                 <td>{{ employee.name }}</td>
                 <td>{{ employee.lastName }}</td>
                 <td>{{ employee.email }}</td>

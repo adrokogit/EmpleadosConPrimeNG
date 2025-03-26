@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { EmployeesService } from '../employees.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,7 +12,6 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./new-employee.component.scss']
 })
 export class NewEmployeeComponent{
-
   stateOptions: any[] = [{ label: 'Activo', value: true }, { label: 'Inactivo', value: false }];
 
   formGroup = new FormGroup({
@@ -38,47 +37,33 @@ export class NewEmployeeComponent{
 
   createEmployee() {
     if (this.formGroup.valid) {
-      const name = this.formGroup.get('name')?.value || '';
-      const lastName = this.formGroup.get('lastName')?.value || '';
-      const email = this.formGroup.get('email')?.value || '';
-      const salary = Number(this.formGroup.get('salary')?.value) || 0;
-      const date = this.formGroup.get('date')?.value || new Date();
-      const active = this.formGroup.get('active')?.value || false;
-
-      const employee = new Employee(
-        '',
-        name,
-        lastName,
-        email,
-        salary,
-        active,
-        date
-      );
+      const employee = this.createEmployeeFromForm('');
       this.employeesService.createEmployee(employee);
+
+      window.dispatchEvent(new CustomEvent('showToast', {
+        detail: {
+          summary: 'Empleado creado',
+          detail: `El empleado ${employee.getFullName()} ha sido creado correctamente`,
+        }
+      }));
+
       this.router.navigate([employee.active ? '/' : '/inactive']);
     }
   }
 
   modifyEmployee() {
     if (this.formGroup.valid) {
-      const name = this.formGroup.get('name')?.value || '';
-      const lastName = this.formGroup.get('lastName')?.value || '';
-      const email = this.formGroup.get('email')?.value || '';
-      const salary = Number(this.formGroup.get('salary')?.value) || 0;
-      const date = this.formGroup.get('date')?.value || new Date();
-      const active = this.formGroup.get('active')?.value || false;
-
-      const employee = new Employee(
-        this.id,
-        name,
-        lastName,
-        email,
-        salary,
-        active,
-        date
-      );
+      const employee = this.createEmployeeFromForm(this.id);
 
       this.employeesService.modifyEmployee(employee);
+
+      window.dispatchEvent(new CustomEvent('showToast', {
+        detail: {
+          summary: 'Empleado modificado',
+          detail: `El empleado ${employee.getFullName()} ha sido modificado correctamente`,
+        }
+      }));
+
       this.router.navigate([employee.active ? '/' : '/inactive']);
     }
   }
@@ -103,4 +88,23 @@ export class NewEmployeeComponent{
     this.formGroup.patchValue(newValues);
   }
   
+  createEmployeeFromForm(id:string): Employee {
+    const name = this.formGroup.get('name')?.value || '';
+    const lastName = this.formGroup.get('lastName')?.value || '';
+    const email = this.formGroup.get('email')?.value || '';
+    const salary = Number(this.formGroup.get('salary')?.value) || 0;
+    const date = this.formGroup.get('date')?.value || new Date();
+    const active = this.formGroup.get('active')?.value || false;
+
+    const employee = new Employee(
+      id,
+      name,
+      lastName,
+      email,
+      salary,
+      active,
+      date
+    );
+    return employee;
+  }
 }

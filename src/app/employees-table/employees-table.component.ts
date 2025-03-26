@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Employee } from '../../model/Employee';
 import { EmployeesService } from '../employees.service';
 import { Router } from '@angular/router';
@@ -14,7 +14,7 @@ export class EmployeesTableComponent implements OnInit{
 
   employees: Employee[] = [];
 
-  constructor(private employeesService:EmployeesService, private router:Router, private messageService: MessageService){
+  constructor(private employeesService:EmployeesService, private router:Router, private messageService: MessageService, private cdr: ChangeDetectorRef){
 
   }
 
@@ -28,14 +28,17 @@ export class EmployeesTableComponent implements OnInit{
 
   inactivateEmployee(employeeID: string): void {
     this.employeesService.inactivateEmployee(employeeID);
-    console.log('Employee inactivated: '+employeeID);
-
+    
     this.employeesService.getEmployeeById(employeeID).subscribe(employee=>{
       this.showToast(employee.getFullName());
-    });
+       });
   }
 
   showToast(fullName:string) { 
     this.messageService.add({severity: 'success', summary:  fullName+' Inactivado', detail: 'Se ha completado la acción correctamente.' });
+  }
+
+  getEmployees(){
+    return this.employees.filter(employee => employee.active).slice().reverse();
   }
 }

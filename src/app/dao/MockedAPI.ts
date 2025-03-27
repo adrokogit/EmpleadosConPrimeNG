@@ -1,6 +1,16 @@
+/**
+ * @file MockedAPI.ts
+ * @author Adrián Fernández Álvarez
+ * @description This file contains the class that simulates the API
+ * @version 1.0.0
+ * @since 27/03/2025
+ */
+
 import { EmployeeDTO } from '../model/dto/employee.DTO';
 export class MockedAPI {
-
+    /**
+     * List of employees
+     */
     private employees: any[];
 
     constructor() { 

@@ -1,4 +1,10 @@
-import { EmployeesService } from "../../services/employees.service";
+/**
+ * @file employee.DTO.ts
+ * @author Adrián Fernández Álvarez
+ * @description This file contains the DTO class for the employee entity
+ * @version 1.0.0
+ * @since 27/03/2025
+ */
 
 export class EmployeeDTO {
     id:string;
@@ -27,11 +33,18 @@ export class EmployeeDTO {
         this.birthDate = birthDate;
     }
 
-    
+    /**
+     * 
+     * @returns the full name of the employee
+     */
     getFullName(): string {
         return `${this.name} ${this.lastName}`;
     }
 
+    /**
+     * 
+     * @returns salary * 12
+     */
     getAnnualSalary(): number {
         return this.salary * 12;
     }

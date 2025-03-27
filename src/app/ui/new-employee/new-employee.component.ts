@@ -1,4 +1,12 @@
-import { Component, EventEmitter } from '@angular/core';
+/**
+ * @file new-employee.component.ts
+ * @author Adrián Fernández Álvarez
+ * @description NewEmployeeComponent class that handles the new employee and modifying employee form
+ * @version 1.0.0
+ * @since 27/03/2025
+ */
+
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { EmployeesService } from '../../services/employees.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,8 +20,13 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./new-employee.component.scss']
 })
 export class NewEmployeeComponent{
-  stateOptions: any[] = [{ label: 'Activo', value: true }, { label: 'Inactivo', value: false }];
-
+  /**
+   * Array of active options
+   */
+  activeOptions: any[] = [{ label: 'Activo', value: true }, { label: 'Inactivo', value: false }];
+  /**
+   * Form group for the new employee form with validators
+   */
   formGroup = new FormGroup({
     name: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
@@ -22,19 +35,38 @@ export class NewEmployeeComponent{
     date: new FormControl(null, [Validators.required, dateBeforeTodayValidator]),
     active: new FormControl(false, Validators.required),
   });
+  /**
+   * Actual id of the employee.
+   * If it is empty, it is a new employee. If it is not, it is a modification
+   */
   id: string = "";
 
+  /**
+   * Constructor of the NewEmployeeComponent, verifies if the id is in the route and sets it to de 'id' variable
+   * @param employeesService autoinjected
+   * @param router autoinjected
+   * @param route autoinjected
+   * @param messageService autoinjected
+   */
   constructor(private employeesService: EmployeesService, private router: Router, private route: ActivatedRoute,private messageService: MessageService) { 
     if (this.route.snapshot.params['id']) { 
       this.id = this.route.snapshot.params['id'];
     }    
   }
+
+  /**
+   * Initializes the component by setting the previous values if it is a modification
+   */
   ngOnInit(): void {
     if (this.id) {
       this.setPreviousEmployeeValues();
     }
   }
 
+  /**
+   * It is called when the user clicks on create button.
+   * Creates the employee and navigates to the active or inactive employees page depending on the active value
+   */
   createEmployee() {
     if (this.formGroup.valid) {
       const employee = this.createEmployeeFromForm('');
@@ -47,6 +79,10 @@ export class NewEmployeeComponent{
     }
   }
 
+  /**
+   * It is called when the user clicks on modify button.
+   * Modifies the employee and navigates to the active or inactive employees page depending on the active value
+   */
   modifyEmployee() {
     if (this.formGroup.valid) {
       const employee = this.createEmployeeFromForm(this.id);
@@ -60,6 +96,9 @@ export class NewEmployeeComponent{
     }
   }
 
+  /**
+   * Sets the previous values of the employee in the form
+   */
   setPreviousEmployeeValues() {
     let employee = this.employeesService.getEmployeeById(this.id);
     const formValues = {
@@ -73,11 +112,19 @@ export class NewEmployeeComponent{
     this.changeFormValues(formValues);
   }
 
-  // Nuevo método para cambiar los valores de los form controls en tiempo de ejecución
+  /**
+   * Changes form values in runtime
+   * @param newValues 
+   */
   changeFormValues(newValues: any) {
     this.formGroup.patchValue(newValues);
   }
   
+  /**
+   * Creates an employee with the form information
+   * @param id 
+   * @returns employee created from the form
+   */
   createEmployeeFromForm(id:string): EmployeeDTO {
     const name = this.formGroup.get('name')?.value || '';
     const lastName = this.formGroup.get('lastName')?.value || '';

@@ -47,7 +47,7 @@
     
       <div class="field">
         <label for="active">Activo</label>
-        <p-selectButton id="active" [options]="stateOptions" formControlName="active" optionLabel="label" optionValue="value" />
+        <p-selectButton id="active" [options]="activeOptions" formControlName="active" optionLabel="label" optionValue="value" />
         <div *ngIf="formGroup.get('active')?.invalid && (formGroup.get('active')?.dirty || formGroup.get('active')?.touched)" class="error-message">
             <small *ngIf="formGroup.get('active')?.errors?.['required']">Escoja una opción.</small>
           </div>

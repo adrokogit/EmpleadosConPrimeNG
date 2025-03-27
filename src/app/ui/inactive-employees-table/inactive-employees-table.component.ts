@@ -44,6 +44,7 @@ export class InactiveEmployeesTableComponent {
   activateEmployee(employeeID: string): void {
     this.employeesService.activateEmployee(employeeID);
     this.employeesService.getEmployees();
+    this.showToast(this.employeesService.getEmployeeById(employeeID).getFullName());
   }
 
   /**

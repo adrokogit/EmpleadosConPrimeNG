@@ -43,6 +43,7 @@ export class EmployeesTableComponent implements OnInit{
   inactivateEmployee(employeeID: string): void {
     this.employeesService.inactivateEmployee(employeeID);
     this.employeesService.getEmployees();
+    this.showToast(this.employeesService.getEmployeeById(employeeID).getFullName());
   }
   /**
    * Shows a toast with the employee name

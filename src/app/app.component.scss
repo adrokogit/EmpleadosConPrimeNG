@@ -23,3 +23,15 @@ router-outlet {
     display:flex;
     justify-content: center;
 }
+
+footer{
+    text-align: center; 
+}
+
+footer a{
+    color: white;
+}
+
+footer a:hover{
+    color: #5068b8;
+}

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Employee } from '../../model/Employee';
-import { EmployeesService } from '../employees.service';
+import { EmployeeDTO } from '../../model/dto/employee.DTO';
+import { EmployeesService } from '../../services/employees.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { EmployeeModel } from '../../model/employee.model';
 
 @Component({
   selector: 'app-inactive-employees-table',
@@ -10,14 +11,12 @@ import { MessageService } from 'primeng/api';
   styleUrl: './inactive-employees-table.component.scss'
 })
 export class InactiveEmployeesTableComponent {
-  employees: Employee[] = [];
-
-  constructor(private employeesService:EmployeesService, private router:Router,private messageService: MessageService){
+  constructor(private employeesService:EmployeesService, private router:Router,private messageService: MessageService, private employeeModel: EmployeeModel){
 
   }
 
   ngOnInit(): void {
-    this.employeesService.getEmployees().subscribe(employees => this.employees = employees);
+    this.employeesService.getEmployees()
   }
 
   modifyEmployee(employeeID: string){
@@ -26,9 +25,7 @@ export class InactiveEmployeesTableComponent {
 
   activateEmployee(employeeID: string): void {
     this.employeesService.activateEmployee(employeeID);
-    this.employeesService.getEmployeeById(employeeID).subscribe(employee=>{
-      this.showToast(employee.getFullName());
-    });
+    this.employeesService.getEmployees();
   }
 
   showToast(fullName:string) { 
@@ -36,6 +33,6 @@ export class InactiveEmployeesTableComponent {
   }
 
   getEmployees(){
-    return this.employees.filter(employee => !employee.active).slice().reverse();
+    return this.employeeModel.inactiveEmployees.slice().reverse();
   }
 }

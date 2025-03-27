@@ -1,6 +1,6 @@
-import { EmployeesService } from "../app/employees.service";
+import { EmployeesService } from "../../services/employees.service";
 
-export class Employee {
+export class EmployeeDTO {
     id:string;
     name: string;
     lastName: string;

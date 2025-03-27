@@ -1,8 +1,8 @@
 import { Component, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { EmployeesService } from '../employees.service';
+import { EmployeesService } from '../../services/employees.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Employee } from '../../model/Employee';
+import { EmployeeDTO } from '../../model/dto/employee.DTO';
 import { dateBeforeTodayValidator } from './date-validators'; // Importa el validador personalizado
 import { MessageService } from 'primeng/api';
 
@@ -61,18 +61,16 @@ export class NewEmployeeComponent{
   }
 
   setPreviousEmployeeValues() {
-    this.employeesService.getEmployeeById(this.id).subscribe(employee => {
-      const formValues = {
-        name: employee.name,
-        lastName: employee.lastName,
-        email: employee.email,
-        salary: employee.salary,
-        date: employee.birthDate,
-        active: employee.active
-      };
-
-      this.changeFormValues(formValues);
-    });
+    let employee = this.employeesService.getEmployeeById(this.id);
+    const formValues = {
+      name: employee.name,
+      lastName: employee.lastName,
+      email: employee.email,
+      salary: employee.salary,
+      date: employee.birthDate,
+      active: employee.active
+    };
+    this.changeFormValues(formValues);
   }
 
   // Nuevo método para cambiar los valores de los form controls en tiempo de ejecución
@@ -80,7 +78,7 @@ export class NewEmployeeComponent{
     this.formGroup.patchValue(newValues);
   }
   
-  createEmployeeFromForm(id:string): Employee {
+  createEmployeeFromForm(id:string): EmployeeDTO {
     const name = this.formGroup.get('name')?.value || '';
     const lastName = this.formGroup.get('lastName')?.value || '';
     const email = this.formGroup.get('email')?.value || '';
@@ -88,7 +86,7 @@ export class NewEmployeeComponent{
     const date = this.formGroup.get('date')?.value || new Date();
     const active = this.formGroup.get('active')?.value || false;
 
-    const employee = new Employee(
+    const employee = new EmployeeDTO(
       id,
       name,
       lastName,

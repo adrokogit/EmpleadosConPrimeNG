@@ -1,8 +1,9 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Employee } from '../../model/Employee';
-import { EmployeesService } from '../employees.service';
+import { EmployeeDTO } from '../../model/dto/employee.DTO';
+import { EmployeesService } from '../../services/employees.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { EmployeeModel } from '../../model/employee.model';
 
 @Component({
   selector: 'app-employees-table',
@@ -11,15 +12,12 @@ import { MessageService } from 'primeng/api';
 })
 export class EmployeesTableComponent implements OnInit{
   
-
-  employees: Employee[] = [];
-
-  constructor(private employeesService:EmployeesService, private router:Router, private messageService: MessageService, private cdr: ChangeDetectorRef){
+  constructor(private employeesService:EmployeesService, private router:Router, private messageService: MessageService, private employeeModel: EmployeeModel){
 
   }
 
   ngOnInit(): void {
-    this.employeesService.getEmployees().subscribe(employees => this.employees = employees);
+    this.employeesService.getEmployees();
   }
 
   modifyEmployee(employeeID: string){
@@ -28,10 +26,7 @@ export class EmployeesTableComponent implements OnInit{
 
   inactivateEmployee(employeeID: string): void {
     this.employeesService.inactivateEmployee(employeeID);
-    
-    this.employeesService.getEmployeeById(employeeID).subscribe(employee=>{
-      this.showToast(employee.getFullName());
-       });
+    this.employeesService.getEmployees();
   }
 
   showToast(fullName:string) { 
@@ -39,6 +34,6 @@ export class EmployeesTableComponent implements OnInit{
   }
 
   getEmployees(){
-    return this.employees.filter(employee => employee.active).slice().reverse();
+    return this.employeeModel.activeEmployees.slice().reverse();
   }
 }

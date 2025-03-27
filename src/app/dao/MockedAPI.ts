@@ -1,6 +1,4 @@
-import { enableProdMode, Injectable } from '@angular/core';
 import { EmployeeDTO } from '../model/dto/employee.DTO';
-
 export class MockedAPI {
 
     private employees: any[];
@@ -10,10 +8,19 @@ export class MockedAPI {
     
     }
 
+    /**
+     * 
+     * @returns copy of the employees list
+     */
     getEmployees():any[]{
         return {... this.employees};
     }
 
+    /**
+     * Updates all employee information matching id
+     * @param employee 
+     * @returns 1 if the employee was updated, -1 if the employee was not found
+     */
     updateEmployee(employee: EmployeeDTO):number{
         let index = this.employees.findIndex(e => e.id == employee.id);
 
@@ -25,12 +32,20 @@ export class MockedAPI {
         return -1;
     }
     
-
+    /**
+     * Adds the employee to the list of employees
+     * @param employee 
+     */
     createEmployee(employee: EmployeeDTO){
         employee.id = this.generateUUID();
         this.employees.push(this.parseEmployeeToAny(employee));
     }
 
+    /**
+     * Deletes the employee with the given id
+     * @param employeeID 
+     * @returns 1 if the employee was deleted, -1 if the employee was not found
+     */
     deleteEmployee(employeeID: string):number{
         let index = this.employees.findIndex(e => e.id == employeeID);
         if(index != -1){
@@ -40,6 +55,11 @@ export class MockedAPI {
         return -1;
     }
 
+    /**
+     * 
+     * @param employeeID 
+     * @returns the employee that matches the id
+     */
     getEmployeeById(employeeID: string):any{
         let index = this.employees.findIndex(e => e.id == employeeID);
         if(index != -1){
@@ -48,7 +68,10 @@ export class MockedAPI {
         return -1;
     }
 
-
+    /**
+     * 
+     * @returns a list of 40 test employees
+     */
     private generateEmployees(){
         let employees: any[] = [];
         for(let i=0; i<40; i++){
@@ -66,10 +89,18 @@ export class MockedAPI {
         return employees;
     }
 
+    /**
+     * 
+     * @returns a random UUID
+     */
     private generateUUID(): string {
         return crypto.randomUUID();
       }
 
+    /**
+     * @param employee 
+     * @returns employee in the format of the API
+     */
     private parseEmployeeToAny(employee: EmployeeDTO): any{
         return {
             id: employee.id,

@@ -11,17 +11,17 @@ export class AppComponent {
   title = 'PrimeNgEmpleadosNew';
   items = [
     {
-        label: 'Empleados Activos',
+        label: 'Activos',
         icon: 'pi pi-user',
         command : () => this.navigateTo('')
     },
     {
-        label: 'Nuevo Empleado',
-        icon: 'pi pi-user-plus',
+        label: 'Nuevo',
+        icon: 'pi pi-plus',
         command : () => this.navigateTo('/newemployee')
     },
     {
-      label: 'Empleados Inactivos',
+      label: 'Inactivos',
       icon: 'pi pi-flag',
       command : () => this.navigateTo('/inactive')
   },

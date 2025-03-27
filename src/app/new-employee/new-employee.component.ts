@@ -40,12 +40,8 @@ export class NewEmployeeComponent{
       const employee = this.createEmployeeFromForm('');
       this.employeesService.createEmployee(employee);
 
-      window.dispatchEvent(new CustomEvent('showToast', {
-        detail: {
-          summary: 'Empleado creado',
-          detail: `El empleado ${employee.getFullName()} ha sido creado correctamente`,
-        }
-      }));
+      this.messageService.add({severity: 'success', summary: 'Empleado creado', detail: `El empleado ${employee.getFullName()} ha sido creado correctamente` });
+
 
       this.router.navigate([employee.active ? '/' : '/inactive']);
     }
@@ -57,12 +53,8 @@ export class NewEmployeeComponent{
 
       this.employeesService.modifyEmployee(employee);
 
-      window.dispatchEvent(new CustomEvent('showToast', {
-        detail: {
-          summary: 'Empleado modificado',
-          detail: `El empleado ${employee.getFullName()} ha sido modificado correctamente`,
-        }
-      }));
+      this.messageService.add({severity: 'success', summary: 'Empleado modificado', detail: `El empleado ${employee.getFullName()} ha sido modificado correctamente` });
+
 
       this.router.navigate([employee.active ? '/' : '/inactive']);
     }

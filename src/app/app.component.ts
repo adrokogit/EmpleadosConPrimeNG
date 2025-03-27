@@ -28,9 +28,6 @@ export class AppComponent {
   
   ];
   constructor(private router: Router, private messageService: MessageService) {
-    window.addEventListener('showToast', (event: any) => {
-      this.showToast(event.detail.summary, event.detail.detail);
-    });
    }
 
   navigateTo(route: string) {

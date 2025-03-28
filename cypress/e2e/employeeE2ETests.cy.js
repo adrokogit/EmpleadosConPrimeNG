@@ -185,6 +185,15 @@ function fillEmployeeForm(name, lastname, email, salary, birthdate, active){
   } 
 }
 
+/**
+ * Checks if the row has the given data
+ * @param {Number} row 
+ * @param {String} name 
+ * @param {String} lastname 
+ * @param {String} email 
+ * @param {String} salary 
+ * @param {String} birthdate 
+ */
 function checkRowData(row, name, lastname, email, salary, birthdate){
   cy.get('tr').eq(row).get('td').eq(0+row*6).should('have.text', name);
   cy.get('tr').eq(row).get('td').eq(1+row*6).should('have.text', lastname);

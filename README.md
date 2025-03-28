@@ -1,27 +1,63 @@
 # PrimeNgEmpleadosNew
+(Still in progress)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.13.
+**PrimeNgEmpleadosNew** is a web application built with Angular that allows you to manage active and inactive employees. It leverages the PrimeNG library for UI components and provides features such as creating, editing, and viewing employee records. This application was created in order to learn Angular, PrimeNG and Cypress.
 
-## Development server
+## Table of Contents
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Features
+- Technologies Used
+- Installation
+- Usage
+- Project Structure
+- Contributing
+- License
 
-## Code scaffolding
+## Features
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Manage active and inactive employees.
+- Create new employees with form validations.
+- Edit existing employee records.
+- Use advanced PrimeNG components like `p-calendar`, `p-selectButton`, and `p-toast`.
+- Navigate between views using Angular Router.
+- Responsive and modern design.
 
-## Build
+## Technologies Used
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- **Angular**: Main framework for building the application.
+- **PrimeNG**: UI component library.
+- **TypeScript**: Primary programming language.
+- **SCSS**: For custom styling.
+- **Node.js and npm**: For dependency management.
+- - **Cypress**: For e2e testing.
 
-## Running unit tests
+## Installation
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1. Clone this repository:
+   `git clone https://github.com/your-username/PrimeNgEmpleadosNew.git`
 
-## Running end-to-end tests
+2. Navigate to the project directory:
+   `cd PrimeNgEmpleadosNew`
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+3. Install dependencies:
+   `npm install`
 
-## Further help
+4. Run the development server:
+   `ng serve`
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+5. Open your browser and navigate to:
+   `http://localhost:4200`
+
+## Usage
+
+- **Home Page**: View a list of active employees.
+- **Add Employee**: Navigate to the "New Employee" page to create a new employee record.
+- **Inactive Employees**: View a list of inactive employees.
+- **Edit Employee**: Modify employee details by navigating to the edit page.
+
+
+## Contact
+
+- **Author**: Adrián Fernández Álvarez
+- **Email**: adrianfernandezalvarez02@gmail.com
+- **Linkedin**: https://es.linkedin.com/in/adri%C3%A1n-fern%C3%A1ndez-%C3%A1lvarez-504689270

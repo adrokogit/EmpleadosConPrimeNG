@@ -34,11 +34,12 @@ describe('Testing e2e for Employees app', () => {
   })
 
   it('Shows table rows', () => {
-    cy.get('tr').eq(0).get('td').eq(0).should('have.text', 'Name38');
-    cy.get('tr').eq(0).get('td').eq(1).should('have.text', 'Lastname38');
-    cy.get('tr').eq(0).get('td').eq(2).should('have.text', 'email38@test.com');
-    cy.get('tr').eq(0).get('td').eq(3).should('have.text', '5,800€');
-    cy.get('tr').eq(0).get('td').eq(4).should('have.text', '10/02/1998');
+    checkRowData(0,'Name38','Lastname38','email38@test.com','5,800€','10/02/1998');
+    checkRowData(1,'Name36','Lastname36','email36@test.com','5,600€','08/12/1995');
+    checkRowData(2,'Name34','Lastname34','email34@test.com','5,400€','06/10/1994');
+    checkRowData(3,'Name32','Lastname32','email32@test.com','5,200€','04/08/1992');
+
+
 
     cy.get('tr').eq(1).within(() => {
       cy.get('td').eq(5).within(() => {
@@ -114,22 +115,14 @@ describe('Testing e2e for Employees app', () => {
     cy.contains('Modificar Empleado').should('exist'); 
 
     //Modifies the user
-    cy.get('input').eq(0).clear().type('Name38Modified');
-    cy.get('input').eq(1).clear().type('Lastname38Modified');
-    cy.get('input').eq(2).clear().type('email38Modified@test.com');
-    cy.get('input').eq(3).clear().type('1234');
-    cy.get('input').eq(4).clear().type('01/01/1001');
+    fillEmployeeForm('Name38Modified','Lastname38Modified', 'email38Modified@test.com', '1234', '01/01/1001','noChange');
     cy.get('p-button').click();
 
     //Check if it navigated to active page
     cy.get('h2').should('have.text', 'Empleados Activos');
 
     //Check changes
-    cy.get('tr').eq(0).get('td').eq(0).should('have.text', 'Name38Modified');
-    cy.get('tr').eq(0).get('td').eq(1).should('have.text', 'Lastname38Modified');
-    cy.get('tr').eq(0).get('td').eq(2).should('have.text', 'email38Modified@test.com');
-    cy.get('tr').eq(0).get('td').eq(3).should('have.text', '1,234€');
-    cy.get('tr').eq(0).get('td').eq(4).should('have.text', '01/01/1001');
+    checkRowData(0,'Name38Modified','Lastname38Modified','email38Modified@test.com','1,234€','01/01/1001');
 
   });
 
@@ -145,29 +138,57 @@ describe('Testing e2e for Employees app', () => {
     cy.contains('Modificar Empleado').should('exist'); 
 
     //Modifies the user
-    cy.get('input').eq(0).clear().type('Name38Modified');
-    cy.get('input').eq(1).clear().type('Lastname38Modified');
-    cy.get('input').eq(2).clear().type('email38Modified@test.com');
-    cy.get('input').eq(3).clear().type('1234');
-    cy.get('input').eq(4).clear().type('01/01/1001');
-    cy.get('p-selectbutton').within(() => {
-      cy.contains('Inactivo').click();
-    });
+    fillEmployeeForm('Name38Modified','Lastname38Modified', 'email38Modified@test.com', '1234', '01/01/1001','inactive');
+    
     cy.get('p-button').click();
 
     //Check if it navigated to inactive page
     cy.get('h2').should('have.text', 'Empleados Inactivos');
 
     //Check changes
-    cy.get('tr').eq(0).get('td').eq(6).should('have.text', 'Name38Modified');
-    cy.get('tr').eq(0).get('td').eq(7).should('have.text', 'Lastname38Modified');
-    cy.get('tr').eq(0).get('td').eq(8).should('have.text', 'email38Modified@test.com');
-    cy.get('tr').eq(0).get('td').eq(9).should('have.text', '1,234€');
-    cy.get('tr').eq(0).get('td').eq(10).should('have.text', '01/01/1001');
+    checkRowData(1,'Name38Modified','Lastname38Modified','email38Modified@test.com','1,234€','01/01/1001');
 
   });
 
-
-
-
 })
+
+
+/**
+ * Fills the employee form with the given parameters
+ * @param {String} name
+ * @param {String} lastname
+ * @param {String} email
+ * @param {String} salary
+ * @param {String} birthdate
+ * @param {'active' | 'inactive' | 'noChange'} active
+ */
+function fillEmployeeForm(name, lastname, email, salary, birthdate, active){
+  cy.get('input').eq(0).clear().type(name);
+  cy.get('input').eq(1).clear().type(lastname);
+  cy.get('input').eq(2).clear().type(email);
+  cy.get('input').eq(3).clear().type(salary);
+  cy.get('input').eq(4).clear().type(birthdate);
+
+  switch(active){
+    case 'active':
+      cy.get('p-selectbutton').within(() => {
+        cy.contains('Activo').click();
+      });
+      break;
+    case 'inactive':
+      cy.get('p-selectbutton').within(() => {
+        cy.contains('Inactivo').click();
+      });
+      break;
+    default:
+      break;
+  } 
+}
+
+function checkRowData(row, name, lastname, email, salary, birthdate){
+  cy.get('tr').eq(row).get('td').eq(0+row*6).should('have.text', name);
+  cy.get('tr').eq(row).get('td').eq(1+row*6).should('have.text', lastname);
+  cy.get('tr').eq(row).get('td').eq(2+row*6).should('have.text', email);
+  cy.get('tr').eq(row).get('td').eq(3+row*6).should('have.text', salary);
+  cy.get('tr').eq(row).get('td').eq(4+row*6).should('have.text', birthdate);
+}

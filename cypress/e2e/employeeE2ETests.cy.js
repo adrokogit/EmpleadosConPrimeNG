@@ -79,4 +79,95 @@ describe('Testing e2e for Employees app', () => {
     
   });
 
+  it('Activates a user',() => {
+    //Navigates to inactive page
+    cy.get('.p-menuitem-link').eq(2).click();
+    cy.get('h2').should('have.text', 'Empleados Inactivos'); 
+
+    //Looks for the activation button from Name38 and clicks it
+    cy.get('tr').eq(1).within(() => {
+      cy.get('td').eq(5).within(() => {
+        cy.get('p-button').eq(1).click();
+      });
+    });
+    //Checks if Name39 is not in the active table
+    cy.get('tr').eq(0).get('td').eq(0).should('not.have.text', 'Name39');
+
+    //Navigates to inactive page
+    cy.get('.p-menuitem-link').eq(0).click();
+    cy.get('h2').should('have.text', 'Empleados Activos');   
+
+    //Checks if Name39 is in the inactive table
+    cy.contains('Name39').should('exist');
+    
+  });
+
+  it('Modify a user from active page',() => {
+    //Looks for the inactivation button from Name38 and clicks it
+    cy.get('tr').eq(1).within(() => {
+      cy.get('td').eq(5).within(() => {
+        cy.get('p-button').eq(0).click();
+      });
+    });
+
+    //Checks if it navigated to modfying page
+    cy.contains('Modificar Empleado').should('exist'); 
+
+    //Modifies the user
+    cy.get('input').eq(0).clear().type('Name38Modified');
+    cy.get('input').eq(1).clear().type('Lastname38Modified');
+    cy.get('input').eq(2).clear().type('email38Modified@test.com');
+    cy.get('input').eq(3).clear().type('1234');
+    cy.get('input').eq(4).clear().type('01/01/1001');
+    cy.get('p-button').click();
+
+    //Check if it navigated to active page
+    cy.get('h2').should('have.text', 'Empleados Activos');
+
+    //Check changes
+    cy.get('tr').eq(0).get('td').eq(0).should('have.text', 'Name38Modified');
+    cy.get('tr').eq(0).get('td').eq(1).should('have.text', 'Lastname38Modified');
+    cy.get('tr').eq(0).get('td').eq(2).should('have.text', 'email38Modified@test.com');
+    cy.get('tr').eq(0).get('td').eq(3).should('have.text', '1,234€');
+    cy.get('tr').eq(0).get('td').eq(4).should('have.text', '01/01/1001');
+
+  });
+
+  it('Modify a user from active page and changing user to inactive',() => {
+    //Looks for the inactivation button from Name38 and clicks it
+    cy.get('tr').eq(1).within(() => {
+      cy.get('td').eq(5).within(() => {
+        cy.get('p-button').eq(0).click();
+      });
+    });
+
+    //Checks if it navigated to modfying page
+    cy.contains('Modificar Empleado').should('exist'); 
+
+    //Modifies the user
+    cy.get('input').eq(0).clear().type('Name38Modified');
+    cy.get('input').eq(1).clear().type('Lastname38Modified');
+    cy.get('input').eq(2).clear().type('email38Modified@test.com');
+    cy.get('input').eq(3).clear().type('1234');
+    cy.get('input').eq(4).clear().type('01/01/1001');
+    cy.get('p-selectbutton').within(() => {
+      cy.contains('Inactivo').click();
+    });
+    cy.get('p-button').click();
+
+    //Check if it navigated to inactive page
+    cy.get('h2').should('have.text', 'Empleados Inactivos');
+
+    //Check changes
+    cy.get('tr').eq(0).get('td').eq(6).should('have.text', 'Name38Modified');
+    cy.get('tr').eq(0).get('td').eq(7).should('have.text', 'Lastname38Modified');
+    cy.get('tr').eq(0).get('td').eq(8).should('have.text', 'email38Modified@test.com');
+    cy.get('tr').eq(0).get('td').eq(9).should('have.text', '1,234€');
+    cy.get('tr').eq(0).get('td').eq(10).should('have.text', '01/01/1001');
+
+  });
+
+
+
+
 })

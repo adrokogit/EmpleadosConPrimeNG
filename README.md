@@ -29,7 +29,7 @@
 - **TypeScript**: Primary programming language.
 - **SCSS**: For custom styling.
 - **Node.js and npm**: For dependency management.
-- - **Cypress**: For e2e testing.
+- **Cypress**: For e2e testing.
 
 ## Installation
 

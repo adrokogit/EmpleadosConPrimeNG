@@ -256,21 +256,21 @@ describe('Testing e2e for Employees app', () => {
     cy.get('p-button').click();
 
     //Check if it shows the errors
-    cy.contains('Nombre es requerido.').should('exist');
-    cy.contains('Apellidos es requerido.').should('exist');
-    cy.contains('Email es requerido.').should('exist');
-    cy.contains('Salario es requerido.').should('exist');
-    cy.contains('Fecha de nacimiento es requerida.').should('exist');
-    cy.contains('Escoja una opción.').should('exist');
+    cy.contains('El campo nombre es obligatorio').should('exist');
+    cy.contains('El campo apellidos es obligatorio').should('exist');
+    cy.contains('El campo email es obligatorio').should('exist');
+    cy.contains('El campo salario es obligatorio').should('exist');
+    cy.contains('La fecha de nacimiento es obligatoria').should('exist');
+    cy.contains('Escoja una opción').should('exist');
 
     //Specific errors
     fillEmployeeForm(' ',' ', 'newEmail', '-4', '01/01/3000','nochange');
     cy.get('p-button').click();
 
     //Check if it shows the errors
-    cy.contains('Email no es válido.').should('exist');
-    cy.contains('Salario debe ser mayor o igual a 0.').should('exist'); 
-    cy.contains('Fecha de nacimiento debe ser anterior a hoy.').should('exist');
+    cy.contains('El email no es válido').should('exist');
+    cy.contains('El salario debe ser mayor o igual a 0').should('exist'); 
+    cy.contains('La fecha de nacimiento debe ser anterior a hoy').should('exist');
   });
 })
 

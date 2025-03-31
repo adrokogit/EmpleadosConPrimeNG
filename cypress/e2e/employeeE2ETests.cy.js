@@ -150,8 +150,129 @@ describe('Testing e2e for Employees app', () => {
 
   });
 
-})
+  it('Modify a user from inactive page',() => {
+    //Navigates to inactive page
+    cy.get('.p-menuitem-link').eq(2).click();
+    cy.get('h2').should('have.text', 'Empleados Inactivos'); 
+  
+    //Looks for the inactivation button from Name39 and clicks it
+    cy.get('tr').eq(1).within(() => {
+      cy.get('td').eq(5).within(() => {
+        cy.get('p-button').eq(0).click();
+      });
+    });
+  
+    //Checks if it navigated to modfying page
+    cy.contains('Modificar Empleado').should('exist'); 
+  
+    //Modifies the user
+    fillEmployeeForm('Name39Modified','Lastname39Modified', 'email39Modified@test.com', '1234', '01/01/1001','noChange');
+    cy.get('p-button').click();
+  
+    //Check if it navigated to inactive page
+    cy.get('h2').should('have.text', 'Empleados Inactivos');
+  
+    //Check changes
+    checkRowData(0,'Name39Modified','Lastname39Modified','email39Modified@test.com','1,234€','01/01/1001');
+  
+  });
 
+  it('Modify a user from inactive page and changing user to inactive',() => {
+    //Navigates to inactive page
+    cy.get('.p-menuitem-link').eq(2).click();
+    cy.get('h2').should('have.text', 'Empleados Inactivos'); 
+
+    //Looks for the inactivation button from Name39 and clicks it
+    cy.get('tr').eq(1).within(() => {
+      cy.get('td').eq(5).within(() => {
+        cy.get('p-button').eq(0).click();
+      });
+    });
+
+    //Checks if it navigated to modfying page
+    cy.contains('Modificar Empleado').should('exist'); 
+
+    //Modifies the user
+    fillEmployeeForm('Name39Modified','Lastname39Modified', 'email39Modified@test.com', '1234', '01/01/1001','active');
+    
+    cy.get('p-button').click();
+
+    //Check if it navigated to active page
+    cy.get('h2').should('have.text', 'Empleados Activos');
+
+    //Check changes
+    checkRowData(0,'Name39Modified','Lastname39Modified','email39Modified@test.com','1,234€','01/01/1001');
+
+  });
+
+  it('Creates an active user',() => {
+    //Navigates to new employee page
+    cy.get('.p-menuitem-link').eq(1).click();
+    cy.contains('Crear Empleado').should('exist'); 
+
+    //Create the user
+    fillEmployeeForm('newName','newLastname', 'newEmail@test.com', '1234', '01/01/1001','active');
+    cy.get('p-button').click();
+
+    //Check if it navigated to active page
+    cy.get('h2').should('have.text', 'Empleados Activos');
+
+    //Check changes
+    checkRowData(0,'newName','newLastname','newEmail@test.com','1,234€','01/01/1001');
+
+  });
+
+  it('Creates an inactive user',() => {
+    //Navigates to new employee page
+    cy.get('.p-menuitem-link').eq(1).click();
+    cy.contains('Crear Empleado').should('exist'); 
+
+    //Create the user
+    fillEmployeeForm('newName','newLastname', 'newEmail@test.com', '1234', '01/01/1001','nochange');
+    cy.get('p-button').click();
+
+    //Check if it navigated to active page
+    cy.get('h2').should('have.text', 'Empleados Inactivos');
+
+    //Check changes
+    checkRowData(0,'newName','newLastname','newEmail@test.com','1,234€','01/01/1001');
+
+  });
+
+  it('Shows validation errors',() => {
+    //Navigates to new employee page
+    cy.get('.p-menuitem-link').eq(1).click();
+    cy.contains('Crear Empleado').should('exist'); 
+
+    //Empty fields
+    cy.get('p-selectbutton').within(() => {
+      cy.contains('Inactivo').click();
+    });
+    cy.get('input').eq(0).clear();
+    cy.get('input').eq(1).clear();
+    cy.get('input').eq(2).clear();
+    cy.get('input').eq(3).clear();
+    cy.get('input').eq(4).clear();
+    cy.get('p-button').click();
+
+    //Check if it shows the errors
+    cy.contains('Nombre es requerido.').should('exist');
+    cy.contains('Apellidos es requerido.').should('exist');
+    cy.contains('Email es requerido.').should('exist');
+    cy.contains('Salario es requerido.').should('exist');
+    cy.contains('Fecha de nacimiento es requerida.').should('exist');
+    cy.contains('Escoja una opción.').should('exist');
+
+    //Specific errors
+    fillEmployeeForm(' ',' ', 'newEmail', '-4', '01/01/3000','nochange');
+    cy.get('p-button').click();
+
+    //Check if it shows the errors
+    cy.contains('Email no es válido.').should('exist');
+    cy.contains('Salario debe ser mayor o igual a 0.').should('exist'); 
+    cy.contains('Fecha de nacimiento debe ser anterior a hoy.').should('exist');
+  });
+})
 
 /**
  * Fills the employee form with the given parameters

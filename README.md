@@ -8,10 +8,9 @@
 - Features
 - Technologies Used
 - Installation
+- E2E Tests Execution
 - Usage
-- Project Structure
-- Contributing
-- License
+- Contact
 
 ## Features
 
@@ -48,7 +47,7 @@
 5. Open your browser and navigate to:
    `http://localhost:4200`
 
-## E2E tests execution
+## E2E Tests Execution
 
 1. Navigate to the project directory:
    `cd PrimeNgEmpleadosNew`

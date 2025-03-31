@@ -8,10 +8,9 @@
 - Features
 - Technologies Used
 - Installation
+- E2E Tests Execution
 - Usage
-- Project Structure
-- Contributing
-- License
+- Contact
 
 ## Features
 
@@ -29,7 +28,7 @@
 - **TypeScript**: Primary programming language.
 - **SCSS**: For custom styling.
 - **Node.js and npm**: For dependency management.
-- - **Cypress**: For e2e testing.
+- **Cypress**: For e2e testing.
 
 ## Installation
 
@@ -47,6 +46,20 @@
 
 5. Open your browser and navigate to:
    `http://localhost:4200`
+
+## E2E Tests Execution
+
+1. Navigate to the project directory:
+   `cd PrimeNgEmpleadosNew`
+
+3. Run the development server:
+   `ng serve`
+
+4. Open Cypress:
+   `npx cypress open`
+   
+4. Select:
+    `/cypress/e2e/employeeE2ETests.cy.js`
 
 ## Usage
 

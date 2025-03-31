@@ -40,4 +40,17 @@ p-card{
     margin-top: 40px;
 }
 
-  
+.labelAndErrorsRight{
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    justify-content: space-between;
+
+}
+
+.labelAndErrorsLeft{
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+
+}

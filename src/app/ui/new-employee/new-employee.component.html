@@ -3,54 +3,70 @@
 <form class="form" [formGroup]="formGroup">
 
     <div class="field">
+      <div class="labelAndErrorsRight">
         <label for="name">Nombre</label>
-        <input type="text" pInputText id="name" placeholder="Nombre" formControlName="name" />
         <div *ngIf="formGroup.get('name')?.invalid && (formGroup.get('name')?.dirty || formGroup.get('name')?.touched)" class="error-message">
           <small *ngIf="formGroup.get('name')?.errors?.['required']">Nombre es requerido.</small>
         </div>
       </div>
-    
-      <div class="field">
-        <label for="lastName">Apellidos</label>
-        <input type="text" pInputText id="lastName" placeholder="Apellidos" formControlName="lastName" />
-        <div *ngIf="formGroup.get('lastName')?.invalid && (formGroup.get('lastName')?.dirty || formGroup.get('lastName')?.touched)" class="error-message">
-          <small *ngIf="formGroup.get('lastName')?.errors?.['required']">Apellidos es requerido.</small>
-        </div>
+        <input type="text" pInputText id="name" placeholder="Nombre" formControlName="name" />
+        
       </div>
     
       <div class="field">
+        <div class="labelAndErrorsRight">
+          <label for="lastName">Apellidos</label>
+          <div *ngIf="formGroup.get('lastName')?.invalid && (formGroup.get('lastName')?.dirty || formGroup.get('lastName')?.touched)" class="error-message">
+            <small *ngIf="formGroup.get('lastName')?.errors?.['required']">Apellidos es requerido.</small>
+          </div>
+        </div>
+        <input type="text" pInputText id="lastName" placeholder="Apellidos" formControlName="lastName" /> 
+      </div>
+    
+      <div class="field">
+        <div class="labelAndErrorsRight">
         <label for="email">Email</label>
-        <input type="text" pInputText id="email" placeholder="Email" formControlName="email" />
         <div *ngIf="formGroup.get('email')?.invalid && (formGroup.get('email')?.dirty || formGroup.get('email')?.touched)" class="error-message">
           <small *ngIf="formGroup.get('email')?.errors?.['required']">Email es requerido.</small>
           <small *ngIf="formGroup.get('email')?.errors?.['email']">Email no es válido.</small>
         </div>
+        </div>
+        <input type="text" pInputText id="email" placeholder="Email" formControlName="email" />
+        
       </div>
     
       <div class="field">
-        <label for="salary">Salario (€)</label>
+        <div class="labelAndErrorsRight">
+          <label for="salary">Salario (€)</label>
+          <div *ngIf="formGroup.get('salary')?.invalid && (formGroup.get('salary')?.dirty || formGroup.get('salary')?.touched)" class="error-message">
+            <small *ngIf="formGroup.get('salary')?.errors?.['required']">Salario es requerido.</small>
+            <small *ngIf="formGroup.get('salary')?.errors?.['min']">Salario debe ser mayor o igual a 0.</small>
+          </div>
+        </div>
         <input type="number" pInputText id="salary" placeholder="Salario" formControlName="salary" />
-        <div *ngIf="formGroup.get('salary')?.invalid && (formGroup.get('salary')?.dirty || formGroup.get('salary')?.touched)" class="error-message">
-          <small *ngIf="formGroup.get('salary')?.errors?.['required']">Salario es requerido.</small>
-          <small *ngIf="formGroup.get('salary')?.errors?.['min']">Salario debe ser mayor o igual a 0.</small>
-        </div>
+        
       </div>
     
       <div class="field">
-        <label for="date">Fecha de Nacimiento</label>
+        <div class="labelAndErrorsLeft">
+          <label for="date">Fecha de Nacimiento</label>
+          <div *ngIf="formGroup.get('date')?.invalid && (formGroup.get('date')?.dirty || formGroup.get('date')?.touched)" class="error-message">
+            <small *ngIf="formGroup.get('date')?.errors?.['required']">Fecha de nacimiento es requerida.</small>
+            <small *ngIf="formGroup.get('date')?.errors?.['dateNotBeforeToday']">Fecha de nacimiento debe ser anterior a hoy.</small>
+          </div>
+        </div>
         <p-calendar id="date" formControlName="date" dateFormat="dd/mm/yy" />
-        <div *ngIf="formGroup.get('date')?.invalid && (formGroup.get('date')?.dirty || formGroup.get('date')?.touched)" class="error-message">
-          <small *ngIf="formGroup.get('date')?.errors?.['required']">Fecha de nacimiento es requerida.</small>
-          <small *ngIf="formGroup.get('date')?.errors?.['dateNotBeforeToday']">Fecha de nacimiento debe ser anterior a hoy.</small>
-        </div>
       </div>
     
       <div class="field">
-        <label for="active">Activo</label>
-        <p-selectButton id="active" [options]="activeOptions" formControlName="active" optionLabel="label" optionValue="value" />
-        <div *ngIf="formGroup.get('active')?.invalid && (formGroup.get('active')?.dirty || formGroup.get('active')?.touched)" class="error-message">
+        <div class="labelAndErrorsLeft">
+          <label for="active">Activo</label>
+          <div *ngIf="formGroup.get('active')?.invalid && (formGroup.get('active')?.dirty || formGroup.get('active')?.touched)" class="error-message">
             <small *ngIf="formGroup.get('active')?.errors?.['required']">Escoja una opción.</small>
           </div>
+        </div>
+        <p-selectButton id="active" [options]="activeOptions" formControlName="active" optionLabel="label" optionValue="value" />
+        
       </div>
       <div class="buttons">
         <p-button *ngIf="id==''" (onClick)="createEmployee()">Crear</p-button>

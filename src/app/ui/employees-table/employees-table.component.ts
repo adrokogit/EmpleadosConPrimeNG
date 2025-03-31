@@ -37,7 +37,7 @@ export class EmployeesTableComponent implements OnInit{
   }
 
   /**
-   * It is called when the user clicks on the activate button and inactivates the employee
+   * It is called when the user clicks on the inactivate button and inactivates the employee
    * @param employeeID 
    */
   inactivateEmployee(employeeID: string): void {

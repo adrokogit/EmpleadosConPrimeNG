@@ -24,6 +24,10 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { EmployeeDAO } from './dao/employee.DAO';
 import { EmployeeModel } from './model/employee.model';
+
+import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community'; 
+import { AgGridAngular } from 'ag-grid-angular'; // Angular Data Grid Component
+
 const routes: Routes = [
   { path: '', component: EmployeesTableComponent },
   { path: 'inactive', component: InactiveEmployeesTableComponent },
@@ -32,6 +36,10 @@ const routes: Routes = [
   { path: '**', component: EmployeesTableComponent },
 
 ];
+
+
+// Register all Community features
+ModuleRegistry.registerModules([AllCommunityModule]);
 
 
 
@@ -58,6 +66,8 @@ const routes: Routes = [
     SelectButtonModule,
     CardModule,
     ToastModule,
+    AgGridAngular,
+    
     RouterModule.forRoot(routes, { useHash: false }),
   ],
   providers: [EmployeesService,

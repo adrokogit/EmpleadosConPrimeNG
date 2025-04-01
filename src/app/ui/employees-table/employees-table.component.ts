@@ -11,7 +11,8 @@ import { EmployeesService } from '../../services/employees.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { EmployeeModel } from '../../model/employee.model';
-
+import type { ColDef, GridOptions } from 'ag-grid-community'; // Column Definition Type Interface
+import { AgGridAngular } from 'ag-grid-angular'; // Angular Data Grid Component
 @Component({
   selector: 'app-employees-table',
   templateUrl: './employees-table.component.html',
@@ -19,6 +20,17 @@ import { EmployeeModel } from '../../model/employee.model';
 })
 export class EmployeesTableComponent implements OnInit{
   
+
+// Column Definitions: Defines the columns to be displayed.
+colDefs: ColDef[] = [
+  { field: "name" },
+  { field: "lastName" },
+  { field: "email" },
+  { field: "salary" },
+  { field: "birthDate" }
+];
+
+
   constructor(private employeesService:EmployeesService, private router:Router, private messageService: MessageService, private employeeModel: EmployeeModel){
 
   }
